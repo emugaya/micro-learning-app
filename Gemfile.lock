@@ -77,14 +77,13 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  bundler
   haml
   pg
   rack-cache
   rack-test
   rake
   rspec
-  rspec-core
-  rspec-expectations
   rspec-mocks
   shotgun
   simplecov
