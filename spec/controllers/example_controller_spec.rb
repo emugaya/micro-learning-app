@@ -1,9 +1,9 @@
-# spec/example_cotroller__spec.rb
-require File.expand_path '../../../app/controllers/example_controller.rb', __FILE__
-require File.expand_path '../../spec_helper.rb', __FILE__
+# spec/example_cotroller_spec.rb
+require_relative '../../app/controllers/example_controller'
+require_relative '../spec_helper.rb'
 
 RSpec.describe ExampleController do
-  it 'should allow accessing the home page' do
+  it 'should allow accessing the example page' do
     get '/'
     expect(last_response).to be_ok
   end

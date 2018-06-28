@@ -2,22 +2,19 @@
 
 source 'https://rubygems.org'
 
-git_source(:github) {|repo_name| 'https://github.com/#{repo_name}' }
-
-# gem 'rails'
 ruby ENV['CUSTOM_RUBY_VERSION'] || '2.4.1'
 gem 'activerecord'
 gem 'bundler'
-gem 'sinatra'
-gem 'rack-cache'
-gem 'shotgun'
-gem 'pg'
-gem 'sinatra-activerecord'
-gem 'rake' 
 gem 'haml' 
+gem 'pg'
+gem 'rack-cache'
 gem 'rack-test'
-gem 'spec'
+gem 'rake' 
 gem 'rspec'
 gem 'rspec-mocks'
+gem 'shotgun'
+gem 'sinatra'
 gem 'simplecov'
+gem 'sinatra-activerecord'
+gem 'spec'
 
