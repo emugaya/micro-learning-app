@@ -33,7 +33,6 @@ jobs:
           name: Run tests
           command: |
             bundle exec rake
-            ls coverage
             ./tmp/cc-test-reporter format-coverage -t simplecov -o tmp/codeclimate.backend.json coverage/.resultset.json
       - persist_to_workspace:
           root: tmp

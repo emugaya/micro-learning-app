@@ -1,5 +1,4 @@
 # config.ru
-# require 'ruby-gems'
 require 'sinatra'
 require 'sinatra/base'
 
