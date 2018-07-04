@@ -9,3 +9,4 @@ Dir.glob('./app/{helpers,controllers}/*.rb').each { |file| require file }
 
 map('/example') { run ExampleController }
 map('/') { run HomepageController }
+run ApplicationController

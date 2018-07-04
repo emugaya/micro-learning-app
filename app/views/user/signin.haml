@@ -1,0 +1,25 @@
+%h2 Sign in Here
+%br
+  - if @not_found
+    %p
+      = @not_found
+  .sign-in-center
+    .sign-in
+      %form{:action => '/signin', :method => 'post', :role => 'form'}
+        .form-group.form-alignment
+          %lable{:for => 'email_address'} Email
+          %input.form-control{:type => 'text', :id => 'email_address', :placeholder => 'Email Address', :name => 'user[email_address]', :value => ''}
+          - if @errors
+            = @errors[:email_address][0]
+        .form-group.form-alignment
+          %lable{:for => 'password'} Password
+          %input.form-control{:type => 'password', :id => 'password', :placeholder => 'Password', :name => 'user[password]', :value => ''}
+          - if @errors
+            = @errors[:password][0]
+        %button.btn.btn-success{:type => 'submit'} SignIn
+        %br
+          %p
+            %a{:href =>'/signup'} SignUp
+            or
+            %a{:href =>'/reset-password'} Reset Password
+    

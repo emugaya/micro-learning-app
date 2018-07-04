@@ -2,12 +2,16 @@
 require 'sinatra/base'
 require 'sinatra/activerecord'
 require 'haml'
+require 'rack'
 require_relative '../helpers/application_helper.rb'
+
 
 # Initializes the main application controller where all other controllers
 # inherit from
 class ApplicationController < Sinatra::Base
+  set :session_secret, '328479283uf923fu8932fu923uf9832f23f232'
   enable :sessions
+
   helpers ApplicationHelper
 
   # set assets folder for static files

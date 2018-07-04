@@ -9,13 +9,15 @@ development:
 production:
   adapter: postgresql
   encoding: unicode
-  database: learning_app
+  database: <%=ENV['DB_DATABASE_NAME']%>
   pool: 2
-  username: postgres
-  password: 
+  username: <%=ENV['DB_USERNAME']%>
+  password: <%=ENV['DB_PASSWORD']%>
+  host: <%=ENV['DB_HOST']%>
 
 test:
   adapter: postgresql
+  host: localhost
   encoding: unicode
   database: test_learning_app
   pool: 2

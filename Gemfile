@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 ruby ENV['CUSTOM_RUBY_VERSION'] || '2.4.1'
 gem 'activerecord'
+gem 'bcrypt'
 gem 'bundler'
 gem 'haml' 
 gem 'pg'
@@ -17,4 +18,3 @@ gem 'sinatra'
 gem 'simplecov'
 gem 'sinatra-activerecord'
 gem 'spec'
-
