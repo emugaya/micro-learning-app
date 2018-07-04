@@ -1,0 +1,38 @@
+%h2 Create an account
+%br
+%form{:action =>'/signup', :method => 'post', :role => 'form'}
+  .form-row.form-alignment
+    .form-group.col-md-6
+      %lable{:for => 'first_name'} First name:
+      %input.form-control{:type => 'text', :id => 'first_name', :placeholder => 'First name', :name => 'user[first_name]', :value => @user[:first_name]}
+      - if @errors
+        = @errors[:first_name][0]
+    .form-group.col-md-6
+      %lable{:for => 'last_name'} Last name:
+      %input.form-control{:type => 'text', :id => 'last_name', :placeholder => 'Last name', :name => 'user[last_name]', :value => @user[:last_name]}
+      - if @errors
+        = @errors[:last_name][0]
+    .form-group.col-md-6
+      %lable{:for => 'email_address'} Email:
+      %input.form-control{:type => 'email', :id => 'email_address', :placeholder => 'Email Address', :name => 'user[email_address]', :value => @user[:email_address]}
+      - if @errors
+        = @errors[:email_address][0]
+    .form-group.col-md-6
+      %lable{:for => 'question'} What is the name of your first school?
+      %input.form-control{:type => 'password', :id => 'question', :placeholder => 'Security Question Answer', :name => 'user[answer]'}
+    .form-group.col-md-6
+      %lable{:for => 'password'} Password:
+      %input.form-control{:type => 'password', :id => 'password', :placeholder => 'Password', :name => 'user[password]', :value => ''}
+      - if @errors
+        = @errors[:password][0]
+    .form-group.col-md-6
+      %lable{:for => 'password_confirmation'} Confirm Password:
+      %input.form-control{:type => 'password', :id => 'password_confirmation', :placeholder => 'Confirm Password', :name => 'user[password_confirmation]', :value => ''}
+      - if @errors
+        = @errors[:password_confirmation][0]
+  %button.btn.btn-success{:type => 'submit'} Register
+%br
+  %p
+    %a{:href =>'/reset-password'} Reset Password
+    or
+    %a{:href =>'/signin'} SignIn

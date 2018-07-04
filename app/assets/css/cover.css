@@ -42,6 +42,9 @@ body {
   max-width: 62em;
 }
 
+.form-alignment {
+  text-align: left!important
+}
 
 /*
  * Header

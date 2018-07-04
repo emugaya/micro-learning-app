@@ -22,7 +22,10 @@
             %a.nav-link{:href => "#"} Courses
             %a.nav-link{:href => "#"} Categories
             %a.nav-link{:href => "#"} About Us
-            %a.nav-link{:href => "#"} SignIn
+            -if session[:user]
+              %a.nav-link{:href => "/signout"} SignOut
+            - else
+              %a.nav-link{:href => "/signin"} SignIn
       %main.inner.cover{:role => "main"}
         = yield
       
