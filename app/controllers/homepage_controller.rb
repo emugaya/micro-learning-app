@@ -51,12 +51,14 @@ class HomepageController < ApplicationController
       return haml :'user/signin'
     end
 
-    session[:user] = @user.to_s
+    session[:user_id] = @user[:id]
+    session[:is_admin] = true
     redirect '/'
   end
 
   get '/signout' do
-    session[:user] = nil
+    session[:user_id] = nil
+    session[:is_admin] = nil
     redirect '/'
   end
 

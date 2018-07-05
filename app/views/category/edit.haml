@@ -1,0 +1,16 @@
+%h2 
+  Editing "#{@category.name}"ategory
+  %br
+  %form{:action => "/category/#{@category.id}/edit", :method => 'post', :role => 'form' }
+    .form-group.form-alignment
+      %lable{:for => 'categoryTitle' } Category Title
+      %input.form-control{:type => 'text', :id => 'categoryName', :name => 'category[name]', :value => "#{@category.name}",:placeholder => 'E.g Architecture'}
+      - if @errors
+        = @errors[:name][0]
+    .form-group.form-alignment
+      %lable{:for => 'categoryDescription'} Category Description
+      %textarea.form-control{:id => 'categoryDescription', :name => 'category[description]', :placeholder => 'E.g Learn Architecture Concepts from Scratch '} #{@category.description}
+      - if @errors
+        = @errors[:name][0]
+    %br
+    %button.btn.btn-success{:type => 'submit'} Save Catgory

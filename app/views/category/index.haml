@@ -1,0 +1,14 @@
+%h2 Click on a Category to view available Courses.
+%br
+  .categories
+    - if @categories
+      .card-columns
+        - @categories.each do |category|
+          .card.bg-info.mb-3.text-left.text-white
+            .card-body
+              %h5= category.name
+              %p= category.description
+              %a.btn.btn-primary{:href =>"/category/#{category.id}"} View Courses
+    - else
+      %p Sorry, there are no categories to display. Check back later
+      
