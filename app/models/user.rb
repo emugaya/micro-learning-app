@@ -16,4 +16,6 @@ class User < ActiveRecord::Base
             uniqueness: { case_sensitive: false, message: 'User with this email already exists, Reset password'}
   validates :password, length: { minimum: 8 }, presence: { message: 'Password must be given please' }
   validates :password_confirmation, presence: true
+
+  has_many :categories
 end

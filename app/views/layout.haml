@@ -18,11 +18,10 @@
         .inner
           %h3.masthead-brand Jifunze
           %nav.nav.nav-masthead.justify-content-center
-            %a.nav-link.active{:href => "#"} Home
-            %a.nav-link{:href => "#"} Courses
-            %a.nav-link{:href => "#"} Categories
-            %a.nav-link{:href => "#"} About Us
-            -if session[:user]
+            %a.nav-link.active{:href => "/"} Home
+            %a.nav-link{:href => "/courses"} Courses
+            %a.nav-link{:href => "/category"} Categories
+            -if session[:user_id]
               %a.nav-link{:href => "/signout"} SignOut
             - else
               %a.nav-link{:href => "/signin"} SignIn

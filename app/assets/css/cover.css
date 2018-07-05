@@ -100,7 +100,12 @@ body {
   font-weight: 700;
 }
 
-
+/*
+* Categories
+*/
+.categories {
+  max-height: 50em;
+}
 /*
  * Footer
  */
