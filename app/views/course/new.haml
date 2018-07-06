@@ -1,0 +1,21 @@
+%h2 Create a Course
+%br
+%form{:action => '/courses/new', :method => 'post', :role => 'form'}
+  .form-group.form-alignment
+    %label{:for => 'courseTitle'} Select Course Category
+    %select.form-control.custom-select.mr-sm-2{:id => 'courseCategory', :name => 'course[category_id]' }
+      %option.selected Choose a Category
+      - @categories.each do |category|
+        %option{:value => category.id } #{category.name}
+  .form-group.form-alignment
+    %label{:for => 'courseTitle'} Course Title
+    %input.form-control{:type => 'text', :id => 'courseTitle', :name => 'course[name]', :value => '', :placeholder => 'E.g Introduction to Architecture'}
+    - if @errors
+      = @errors[:name][0]
+  .form-group.form-alignment
+    %label{:for => 'courseDescription'} Course Description
+    %textarea.form-control{:id => 'courseDescription', :name => 'course[description]', :value => '', :placeholder => 'An Introduction to ..'}
+    - if @errors
+      = @errors[:description][0]
+  %br
+  %button.btn.btn-success{:type => 'submit'} Save Course

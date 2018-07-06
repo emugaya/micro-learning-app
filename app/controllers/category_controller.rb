@@ -1,16 +1,21 @@
 # category_controller.rb
 require_relative './application_controller'
 require_relative '../models/category'
+require_relative '../models/course'
 
 class CategoryController < ApplicationController
   get '/' do
     @categories = Category.all
+    if @categories.length.zero?
+      @categories = nil
+    end
+
     haml :'category/index'
   end
 
   get '/new' do
     @title = 'Create a new Category'
-    @category = Category.new()
+    @category = Category.new
     haml :'category/new'
   end
 
@@ -20,7 +25,7 @@ class CategoryController < ApplicationController
     end
 
     params[:category]['user_id'] = session[:user_id]
-
+    @category = Category.new(params[:category])
     unless @category.valid?
       @errors = @category.errors
       haml :'category/new'
@@ -31,15 +36,6 @@ class CategoryController < ApplicationController
     else
       haml :'category/new'
     end
-  end
-
-  get '/:id' do
-    category_id = params.values_at('id')
-    @category = Category.where(:id => category_id).first
-    unless @category
-      raise not_found
-    end
-    puts params.values_at('id')
   end
 
   get '/:id/edit' do
@@ -67,6 +63,18 @@ class CategoryController < ApplicationController
     else
       haml :'category/edit/'
     end
+  end
+
+  get '/:id' do
+    category_id = params.values_at('id')
+    @category = Category.where(:id => category_id).first
+    unless @category
+      raise not_found
+    end
+
+    @courses = Course.where(:category_id => category_id)
+    puts @courses
+    haml :'category/courses'
   end
 
   delete '/:id' do

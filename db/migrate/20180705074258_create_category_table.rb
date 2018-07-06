@@ -3,7 +3,7 @@ class CreateCategoryTable < ActiveRecord::Migration[5.2]
     create_table :categories do |t|
       t.string :name
       t.string :description
-      t.belongs_to :user, index: { unique: true }, foreign_key: true
+      t.belongs_to :user, foreign_key: true
 
       t.timestamps
     end
