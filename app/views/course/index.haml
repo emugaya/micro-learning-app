@@ -1,0 +1,14 @@
+%h2 Click on a Coures to view available Lessons.
+%br
+  .courses
+    - if @courses
+      .card-columns
+        - @courses.each do |course|
+          .card.bg-info.mb-3.text-left.text-white
+            .card-body
+              %h5= course.name
+              %p= course.description
+              %a.btn.btn-primary{:href =>"/courses/#{course.id}/lesson"} View Lessons
+              %a.btn.btn-primary{:href =>"/courses/#{course.id}/lesson"} Enrol
+    - else
+      %p Sorry, there are no courses to display. Check back later

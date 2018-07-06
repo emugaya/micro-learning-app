@@ -1,0 +1,14 @@
+%h2 #{@category.name} Courses
+%br
+.courses
+  - if @courses
+    .card-columns
+      - @courses.each do |course|
+        .card.bg-info.mb-3.text-left.text-white
+          .card-body
+            %h5= course.name
+            %p= course.description
+            %a.btn.btn-primary{:href =>"/courses/#{course.id}/"} View Course
+            %a.btn.btn-primary{:href =>"/courses/#{course.id}/"} Enrol
+  - else
+    %p Ooops, there are no courses to display. Check back later!
