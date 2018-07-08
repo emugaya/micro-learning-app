@@ -1,4 +1,4 @@
-%h2 Click on a Coures to view available Lessons.
+%h2 Click on a Course to view available Lessons.
 %br
   .courses
     - if @courses
@@ -8,7 +8,7 @@
             .card-body
               %h5= course.name
               %p= course.description
-              %a.btn.btn-primary{:href =>"/courses/#{course.id}/lesson"} View Lessons
-              %a.btn.btn-primary{:href =>"/courses/#{course.id}/lesson"} Enrol
+              %a.btn.btn-primary{:href =>"/courses/#{course.id}/lessons"} View Lessons
+              %a.btn.btn-primary{:href =>"/courses/#{course.id}/lessons"} Enrol
     - else
       %p Sorry, there are no courses to display. Check back later

@@ -1,0 +1,44 @@
+%h2 Editing "#{@lesson.name}"
+%br
+%form{:action => "/lessons/#{@lesson.id}/edit", :method => 'post', :role => 'form'}
+  .form-group.form-alignment
+    %lable{:for => 'courseTitle'} Select a Course your updating this lesson to:
+    %select.form-control.custom-select.mr-sm-2{:id => 'course', :name => 'lesson[course_id]'}
+      - if @lesson.course_id
+        - @courses.each do |course|
+          - if @lesson.course_id == course.id
+            %option{:value => course.id} #{course.name}
+      - else
+        %option.selected Choose a Course
+      - @courses.each do |course|
+        %option{:value => course.id} #{course.name}
+  .form-group.form-alignment
+    %lable{:for => 'dayId'} Lesson Number
+    %select.form-control.custom-select.mr-sm-2{:id => 'dayId', :name => 'lesson[day_id]'}
+      - if @lesson.day_id
+        - @days.each do |day|
+          - if @lesson.day_id == day.id
+            %option{:value => day.id} #{day.name}
+      - else
+        %option.selected Choose an Lesson Number
+      - @days.each do |day|
+        %option{:value => day.id} #{day.name}
+    - if @errors
+      = @errors[:day_id][0]
+  .form-group.form-alignment
+    %lable{:for => 'lessonTitle'} Lesson Title
+    %input.form-control{:type => 'text', :id => 'lessonName', :name => 'lesson[name]', :value => "#{@lesson.name}", :placeholder => 'Eg. Lesson 101'}
+    - if @errors
+      = @errors[:name][0]
+  .form-group.form-alignment
+    %lable{:for => 'lessonDescription'} Brief Lesson Description
+    %textarea.form-control{:id => 'lessonDescription', :name => 'lesson[description]', :placeholder => 'Lesson One introduces ...'} #{@lesson.description}
+    - if @errors
+      = @errors[:description][0]
+  .form-group.form-alignment
+    %lable{:for => 'lessonUrl'} Lesson Url
+    %input.form-control{:type => 'text', :id => 'lessonUrl', :name => 'lesson[url]', :value => "#{@lesson.url}", :placeholder => 'Eg. Lesson 101'}
+    - if @errors
+      = @errors[:url][0]
+  %br
+  %button.btn.btn-success{:type => 'submit'} Update Lesson

@@ -1,0 +1,30 @@
+%h2 Add a Lesson
+%br
+%form{:action => '/lessons/new', :method => 'post', :role => 'form'}
+  .form-group.form-alignment
+    %lable{:for => 'courseTitle'} Select a Course your adding this lesson to:
+    %select.form-control.custom-select.mr-sm-2{:id => 'course', :name => 'lesson[course_id]'}
+      %option.selected Choose a Course
+      - @courses.each do |course|
+        %option{:value => course.id} #{course.name}
+  .form-group.form-alignment
+    %lable{:for => 'lessonNumber'} Lesson Number
+    %select.form-control.custom-select.mr-sm-2{:id => 'lessonNumber', :name => 'lesson[lesson_number]'}
+      %option.selected Choose an Lesson Number
+      - @days.each do |day|
+        %option{:value => day.id} #{day.name}
+    - if @errors
+      = @errors[:day_id][0]
+  .form-group.form-alignment
+    %lable{:for => 'lessonTitle'} Lesson Title
+    %input.form-control{:type => 'text', :id => 'lessonName', :name => 'lesson[name]', :value => '', :placeholder => 'Eg. Lesson 101'}
+    - if @errors
+      = @errors[:name][0]
+  .form-group.form-alignment
+    %lable{:for => 'lessonDescription'} Brief Lesson Description
+    %textarea.form-control{:id => 'lessonDescription', :name => 'lesson[description]', :value => '', :placeholder => 'Lesson One introduces ...'}
+  .form-group.form-alignment
+    %lable{:for => 'lessonUrl'} Lesson Url
+    %input.form-control{:type => 'text', :id => 'lessonUrl', :name => 'lesson[url]', :value => '', :placeholder => 'Eg. Lesson 101'}
+  %br
+  %button.btn.btn-success{:type => 'submit'} Save Lesson
