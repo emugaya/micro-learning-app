@@ -1,0 +1,17 @@
+%h2 #{@course.name} - Lessons
+%p Description: #{@course.description}
+%br
+- if @lessons.length.zero?
+  %p Sorry, there are no lessons in this course
+- else
+  .lessons.form-alignment
+    .row
+      .col-sm-12
+        - @lessons.each do |lesson|
+          .card.text-white.bg-dark.border-light.mb-3
+            .card-body
+              %h5.card-title #{lesson.name}
+              %p.card-text #{lesson.day_id}
+              %p.card-text #{lesson.description}
+              %p.card-text #{lesson.url}
+          %br

@@ -55,8 +55,6 @@ class CategoryController < ApplicationController
       return not_found
     end
 
-    @category[:name] = params[:category]['name']
-    @category[:description] = params[:category]['description']
     if @category.update_attributes(params[:category])
       @category.save
       redirect "/category/#{@category.id}"
@@ -73,7 +71,6 @@ class CategoryController < ApplicationController
     end
 
     @courses = Course.where(:category_id => category_id)
-    puts @courses
     haml :'category/courses'
   end
 
