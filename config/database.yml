@@ -2,7 +2,7 @@ development:
   adapter: postgresql
   encoding: unicode
   database: learning_app_dev
-  pool: 2
+  pool: 1000
   username: postgres
   password: 
 
@@ -10,7 +10,7 @@ production:
   adapter: postgresql
   encoding: unicode
   database: <%=ENV['DB_DATABASE_NAME']%>
-  pool: 2
+  pool: 1000
   username: <%=ENV['DB_USERNAME']%>
   password: <%=ENV['DB_PASSWORD']%>
   host: <%=ENV['DB_HOST']%>
@@ -20,6 +20,6 @@ test:
   host: localhost
   encoding: unicode
   database: test_learning_app
-  pool: 2
+  pool: 1000
   username: postgres
   password: 

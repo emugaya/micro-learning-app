@@ -11,6 +11,7 @@ require_relative '../helpers/application_helper.rb'
 class ApplicationController < Sinatra::Base
   set :session_secret, '328479283uf923fu8932fu923uf9832f23f232'
   enable :sessions
+  set :root, File.dirname(__FILE__)
 
   helpers ApplicationHelper
 

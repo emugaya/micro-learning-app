@@ -8,7 +8,7 @@
           .card-body
             %h5= course.name
             %p= course.description
-            %a.btn.btn-primary{:href =>"/courses/#{course.id}/"} View Course
-            %a.btn.btn-primary{:href =>"/courses/#{course.id}/"} Enrol
+            %a.btn.btn-primary{:href =>"/courses/#{course.id}/lessons"} View Course
+            %a.btn.btn-primary{:href =>"/courses/#{course.id}/enrol"} Enrol
   - else
     %p Ooops, there are no courses to display. Check back later!

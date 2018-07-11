@@ -9,6 +9,6 @@
               %h5= course.name
               %p= course.description
               %a.btn.btn-primary{:href =>"/courses/#{course.id}/lessons"} View Lessons
-              %a.btn.btn-primary{:href =>"/courses/#{course.id}/lessons"} Enrol
+              %a.btn.btn-primary{:href =>"/courses/#{course.id}/enrol"} Enrol
     - else
       %p Sorry, there are no courses to display. Check back later
