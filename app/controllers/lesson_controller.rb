@@ -33,7 +33,7 @@ class LessonController < ApplicationController
     end
 
     if @lesson.save
-      redirect ''
+      redirect "/courses/#{@lesson[:course_id]}/lessons"
     else
       @errors = @lesson.errors
       @courses = Course.all

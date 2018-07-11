@@ -8,9 +8,9 @@
       - @courses.each do |course|
         %option{:value => course.id} #{course.name}
   .form-group.form-alignment
-    %lable{:for => 'lessonNumber'} Lesson Number
-    %select.form-control.custom-select.mr-sm-2{:id => 'lessonNumber', :name => 'lesson[lesson_number]'}
-      %option.selected Choose an Lesson Number
+    %lable{:for => 'lessonDay'} Lesson Number
+    %select.form-control.custom-select.mr-sm-2{:id => 'lessonDay', :name => 'lesson[day_id]'}
+      %option.selected Choose a Lesson Day
       - @days.each do |day|
         %option{:value => day.id} #{day.name}
     - if @errors
