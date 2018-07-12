@@ -1,0 +1,30 @@
+%h2 Your Viewing all Lessons on Jifunze
+%br
+%a.btn.btn-primary{:href => '/lessons/new'} Create Lesson
+%br
+%br
+  %table.table
+    %thead.thead-dark
+      %tr
+        %th{:scope => 'col'} #
+        %th{:scope => 'col'} Lesson Name
+        %th{:scope => 'col'} Description
+        %th{:scope => 'col'} Day
+        %th{:scope => 'col'} URL
+        %th{:scope => 'col'} Actions
+    %tbody
+      - @lessons.each do |lesson|
+        %tr
+          %td= lesson.id
+          %td
+            %a{:href => "/lessons/#{lesson.id}"}= lesson.name
+          %td= lesson.description
+          %td Day #{lesson.day_id}
+          %td= lesson.url
+          %td
+            %a.btn.btn-success{:href => "/courses/#{lesson.course_id}/lessons"} View
+            %a.btn.btn-info{:href => "/lessons/#{lesson.id}/edit"} Edit
+            %form.form-inline{:action => "/lessons/#{lesson.id}", :method => 'post'}
+              %input{:id => 'hidden', :type => 'hidden', :name => '_method', :value => 'DELETE'}
+              %button.btn.btn-danger{:type => 'submit', :value => 'Delete Lesson'} Delete
+          

@@ -13,6 +13,21 @@ The app is hosted on heroku: https://micro-learning-app-prod.herokuapp.com
 - Bundle
 - Rake
 
+## Features
+#### Admin Features
+- Admins are able to Create, Read, Update and Delete Categories
+- Admins are able to Create, Read, Update and Delete Courses
+- Admins are able to Create, Read, Update and Delete Lessons
+
+#### Registered User Features
+- Registered Users are able to view Categories
+- Registered Users are able to view, enrol in a Course or leave a course they are already enrolled in
+- Registered Users are able to view Lessons
+
+#### Un-Registered User Features
+- They are able to register with the site
+- They are able to view categories, courses and lessons. 
+
 ## Getting Started
 Ensure that you have `Ruby 2.4.1, Postgres DB (10.4), Bundle, Rake`
 * Clone the application:

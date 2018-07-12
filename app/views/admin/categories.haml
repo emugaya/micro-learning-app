@@ -1,0 +1,26 @@
+%h2 Your Viewiing all Categories Available
+%br
+%a.btn.btn-primary{:href => '/category/new'} Create a Category
+%br
+%br
+%table.table
+  %thead.thead-dark
+    %tr
+      %th{:scope => 'col'} #
+      %th{:scope => 'col'} Name
+      %th{:scope => 'col'} Description
+      %th{:scope => 'col'} Actions
+  %tbody
+    - @categories.each do |category|
+      %tr
+        %td= category.id
+        %td
+          %a{:href => "/category/#{category.id}"}= category.name
+        %td= category.description
+        %td
+          %a.btn.btn-success{:href => "/category/#{category.id}/"} View
+          %a.btn.btn-info{:href => "/category/#{category.id}/edit"} Edit
+          %form.form-inline{:action => "/category/#{category.id}", :method => 'post'}
+            %input{:id => 'hidden', :type => 'hidden', :name => '_method', :value => 'DELETE'}
+            %button.btn.btn-danger{:type => 'submit', :value => 'Delete Category'} Delete
+

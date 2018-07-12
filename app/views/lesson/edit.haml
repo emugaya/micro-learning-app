@@ -1,6 +1,7 @@
 %h2 Editing "#{@lesson.name}"
 %br
-%form{:action => "/lessons/#{@lesson.id}/edit", :method => 'post', :role => 'form'}
+%form{:action => "/lessons/#{@lesson.id}", :method => 'post', :role => 'form'}
+  %input{:id => 'hidden', :type => 'hidden', :name => '_method', :value => 'PATCH'}
   .form-group.form-alignment
     %lable{:for => 'courseTitle'} Select a Course your updating this lesson to:
     %select.form-control.custom-select.mr-sm-2{:id => 'course', :name => 'lesson[course_id]'}
@@ -41,4 +42,4 @@
     - if @errors
       = @errors[:url][0]
   %br
-  %button.btn.btn-success{:type => 'submit'} Update Lesson
+  %button.btn.btn-success{:type => 'submit', :value => 'Edit Lesson'} Update Lesson

@@ -9,7 +9,7 @@ require_relative '../helpers/application_helper.rb'
 # Initializes the main application controller where all other controllers
 # inherit from
 class ApplicationController < Sinatra::Base
-  set :session_secret, '328479283uf923fu8932fu923uf9832f23f232'
+  set :session_secret, ENV['SESSION_SECRET_KEY']
   enable :sessions
   set :root, File.dirname(__FILE__)
 
@@ -27,5 +27,9 @@ class ApplicationController < Sinatra::Base
   not_found do
     title 'Not Found!'
     haml :not_found
+  end
+
+  before do
+    puts 'running before do'
   end
 end

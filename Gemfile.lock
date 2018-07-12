@@ -68,6 +68,8 @@ GEM
     sinatra-activerecord (2.0.13)
       activerecord (>= 3.2)
       sinatra (>= 1.0)
+    sinatra-flash (0.3.0)
+      sinatra (>= 1.0.0)
     spec (5.3.4)
       chronic_duration (~> 0.10.2)
     temple (0.8.0)
@@ -95,6 +97,7 @@ DEPENDENCIES
   simplecov
   sinatra
   sinatra-activerecord
+  sinatra-flash
   spec
 
 RUBY VERSION

@@ -52,13 +52,14 @@ class HomepageController < ApplicationController
     end
 
     session[:user_id] = @user[:id]
-    session[:is_admin] = true
-    redirect '/'
+    session[:is_admin] = @user[:is_admin]
+    session[:user_first_name] = @user.first_name
+    redirect '/admin' if session[:is_admin]
+    redirect '/category'
   end
 
   get '/signout' do
-    session[:user_id] = nil
-    session[:is_admin] = nil
+    session.clear
     redirect '/'
   end
 
