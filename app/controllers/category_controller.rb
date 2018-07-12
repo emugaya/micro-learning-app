@@ -21,7 +21,7 @@ class CategoryController < ApplicationController
 
   post '/new' do
     unless session[:user_id]
-      raise not_found
+      not_found
     end
 
     params[:category]['user_id'] = session[:user_id]
@@ -32,7 +32,7 @@ class CategoryController < ApplicationController
     end
 
     if @category.save
-      redirect '/category'
+      redirect '/admin/categories'
     else
       haml :'category/new'
     end
@@ -47,7 +47,7 @@ class CategoryController < ApplicationController
     haml :'category/edit'
   end
 
-  post '/:id/edit' do
+  patch '/:id/?' do
     category_id = params.values_at('id')
     @category = Category.where(:id => category_id).first
 
@@ -57,15 +57,23 @@ class CategoryController < ApplicationController
 
     if @category.update_attributes(params[:category])
       @category.save
-      redirect "/category/#{@category.id}"
+      redirect "/admin/categories"
     else
-      haml :'category/edit/'
+      haml :'category/edit'
     end
   end
 
   get '/:id' do
     category_id = params.values_at('id')
     @category = Category.where(:id => category_id).first
+    @enrolled_courses =[]
+    if session[:user_id]
+      @my_courses = Enrollment.where(:user_id => session[:user_id], :status => 'active')
+      @my_courses.each {|enrollment| @enrolled_courses.push(enrollment[:course_id])}
+    else
+      @enrolled_courses = []
+    end
+
     unless @category
       raise not_found
     end
@@ -74,7 +82,7 @@ class CategoryController < ApplicationController
     haml :'category/courses'
   end
 
-  delete '/:id' do
+  delete '/:id/?' do
     category_id = params.values_at('id')
     @category = Category.where(:id => category_id).first
 
@@ -83,6 +91,6 @@ class CategoryController < ApplicationController
     end
 
     @category.destroy!
-    redirect '/category'
+    redirect '/admin/categories'
   end
 end

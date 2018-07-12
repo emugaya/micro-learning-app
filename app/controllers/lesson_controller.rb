@@ -6,6 +6,17 @@ require_relative '../models/lesson'
 require_relative '../models/day'
 
 class LessonController < ApplicationController
+  before do
+    check_admin_auth if request.path_info == '/new'
+    check_admin_auth if [ :post, :patch, :delete ].include? request.request_method.downcase.to_sym
+
+    if params.values_at('id')
+      lesson_id = params.values_at('id')
+      lesson = Lesson.where(:id => lesson_id).first
+      not_found unless lesson
+    end
+  end
+
   get '/' do
     @title = 'All Lessons'
     @lesson = Lesson.all
@@ -13,10 +24,6 @@ class LessonController < ApplicationController
   end
 
   get '/new' do
-    unless session[:user_id]
-      raise not_found # Change to unauthorized
-    end
-
     @title = 'Create a new Lesson'
     @lesson = Lesson.new
     @courses = Course.all
@@ -33,7 +40,7 @@ class LessonController < ApplicationController
     end
 
     if @lesson.save
-      redirect "/courses/#{@lesson[:course_id]}/lessons"
+      redirect "/admin/lessons"
     else
       @errors = @lesson.errors
       @courses = Course.all
@@ -43,28 +50,21 @@ class LessonController < ApplicationController
   end
 
   get '/:id/edit' do
+    check_admin_auth
     lesson_id = params.values_at('id')
     @lesson = Lesson.where(:id => lesson_id).first
-    unless @lesson
-      raise not_found # Change to this to Lesson not found
-    end
-
     @courses = Course.all
     @days = Day.all
     haml :'lesson/edit'
   end
 
-  post '/:id/edit' do
+  patch '/:id/?' do
     lesson_id = params.values_at('id')
     @lesson = Lesson.where(:id => lesson_id).first
 
-    unless @lesson
-      raise notfound # Change this to lesson not found
-    end
-
     if @lesson.update_attributes(params[:lesson])
       @lesson.save
-      redirect "courses/#{@lesson.course_id}/lessons"
+      redirect "/admin/lessons"
     else
       @course = Course.all
       @errors = @lesson.errors
@@ -72,14 +72,10 @@ class LessonController < ApplicationController
     end
   end
 
-  delete '/:id/edit' do
+  delete '/:id/?' do
     lesson_id = params.values_at('id')
-    @lesson = Lesson.where(:id => lesson_id)
-    unless @lesson
-      raise not_found
-    end
-
-    @lesson.destroy!
-    redirect '/lessons'
+    lesson = Lesson.where(:id => lesson_id).first
+    lesson.destroy!
+    redirect '/admin/lessons'
   end
 end 

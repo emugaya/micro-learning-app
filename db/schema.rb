@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2018_07_09_083542) do
     t.string "email_address"
     t.string "password_digest"
     t.string "answer"
+    t.boolean "is_admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

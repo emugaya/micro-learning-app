@@ -1,0 +1,26 @@
+%h2 Your Viewing all Courses Available on Jifunze
+%br
+%a.btn.btn-primary{:href => '/courses/new'} Create a Course
+%br
+%br
+%table.table
+  %thead.thead-dark
+    %tr
+      %th{:scope => 'col'} #
+      %th{:scope => 'col'} Course Title
+      %th{:scope => 'col'} Description
+      %th{:scope => 'col'} Actions
+  %tbody
+    - @courses.each do |course|
+      %tr
+        %td= course.id
+        %td
+          %a{:href => "/courses/#{course.id}"}= course.name
+        %td= course.description
+        %td
+          %a.btn.btn-success{:href => "/courses/#{course.id}"} View
+          %a.btn.btn-info{:href => "/courses/#{course.id}/edit"} Edit
+          %form.form-inline{:action => "/courses/#{course.id}", :method => 'post'}
+            %input{:id => 'hidden', :type => 'hidden', :name => '_method', :value => 'DELETE'}
+            %button.btn.btn-danger{:type => 'submit', :value => 'Delete Course'} Delete
+

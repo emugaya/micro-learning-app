@@ -9,6 +9,10 @@
             %h5= course.name
             %p= course.description
             %a.btn.btn-primary{:href =>"/courses/#{course.id}/lessons"} View Course
-            %a.btn.btn-primary{:href =>"/courses/#{course.id}/enrol"} Enrol
+            - if session[:user_id]
+              - if @enrolled_courses.include?(course.id)
+                %a.btn.btn-primary{:href =>"/courses/#{course.id}/withdraw"} Withdraw
+              - else
+                %a.btn.btn-primary{:href =>"/courses/#{course.id}/enrol"} Enrol          
   - else
     %p Ooops, there are no courses to display. Check back later!

@@ -1,6 +1,7 @@
-%h2 Create a Course
+%h2 Editing Course '#{@course.name}'
 %br
-%form{:action => "/courses/#{@course.id}/edit", :method => 'post', :role => 'form'}
+%form{:action => "/courses/#{@course.id}", :method => 'post', :role => 'form'}
+  %input{:id => 'hidden', :type => 'hidden', :name => '_method', :value => 'PATCH'}
   .form-group.form-alignment
     %label{:for => 'courseTitle'} Select Course Category
     %select.form-control.custom-select.mr-sm-2{:id => 'courseCategory', :name => 'course[category_id]', }
@@ -23,4 +24,4 @@
     - if @errors
       = @errors[:description][0]
   %br
-  %button.btn.btn-success{:type => 'submit'} Save Course
+  %button.btn.btn-success{:type => 'submit', :value => 'Edit Course'} Save Course

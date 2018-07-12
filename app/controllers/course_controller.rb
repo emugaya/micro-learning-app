@@ -7,20 +7,28 @@ require_relative '../models/user'
 require_relative '../../lib/mail'
 
 class CourseController < ApplicationController
+  DAY = 2592000
+
+  before do 
+    check_admin_auth if request.path_info == '/new'
+    check_admin_auth if [ :post, :patch, :delete ].include? request.request_method.downcase.to_sym
+  end
 
   get '/' do
     @courses = Course.all
-    if @courses.length.zero?
-      @courses = nil
+    @enrolled_courses = []
+    if session[:user_id]
+      @my_courses = Enrollment.where(:user_id => session[:user_id], :status => 'active')
+      @my_courses.each {|enrollment| @enrolled_courses.push(enrollment[:course_id])}
+    else
+      @enrolled_courses = []
     end
+
+    @courses = nil if @courses.length.zero?
     haml :'course/index'
   end
 
   get '/new' do
-    unless session[:user_id]
-      raise not_found # Change to unauthorized
-    end
-
     @title = 'Create a new Course'
     @course = Course.new
     @categories = Category.all
@@ -28,10 +36,6 @@ class CourseController < ApplicationController
   end
 
   post '/new' do
-    unless session[:user_id]
-      raise not_found # Change to unauthorized
-    end
-
     @course = Course.new(params[:course])
     unless @course.errors
       @errors = @course.errors
@@ -39,7 +43,7 @@ class CourseController < ApplicationController
     end
 
     if @course.save
-      redirect '/courses'
+      redirect '/admin/courses'
     else
       @errors = @course.errors
       @categories = Category.all
@@ -59,6 +63,7 @@ class CourseController < ApplicationController
   end
 
   get '/:id/edit' do
+    check_admin_auth
     course_id = params.values_at('id')
     @course = Course.where(:id => course_id).first
     @categories = Category.all
@@ -69,7 +74,7 @@ class CourseController < ApplicationController
     haml :'course/edit'
   end
 
-  get '/:id/edit' do
+  patch '/:id/?' do
     course_id = params.values_at('id')
     @course = Course.where(:id => course_id).first
 
@@ -79,7 +84,7 @@ class CourseController < ApplicationController
   
     if @course.update_attributes(params[:course])
       @course.save
-      redirect '/courses'
+      redirect '/admin/courses'
     else
       @categories = Category.all
       haml :'course/edit'
@@ -108,16 +113,24 @@ class CourseController < ApplicationController
     @enrollment['status'] = 'new'
 
     if @enrollment.save!
-      puts "#{@enrollment.to_json}, 'is the id'"
       CourseController.send_lesson(@enrollment)
       redirect "/courses/#{course_id}/lessons"
     else
-      puts @enrollment.errors[:course_id]
       #flash a notice to user that they could not be enrolled
     end
   end
 
-  delete '/:id/delete' do
+  get '/:id/withdraw' do
+    course_id = params.values_at('id')
+    @course = Enrollment.find_by(:course_id => course_id,
+                                 :user_id => session[:user_id],
+                                 :status => 'active')
+
+    @course.update_attributes(:status => 'withdrawn') if @course
+    redirect '/courses'
+  end
+
+  delete '/:id/?' do
     course_id = params.values_at('id')
     @course = Course.where(:id => course_id).first
 
@@ -126,13 +139,29 @@ class CourseController < ApplicationController
     end
 
     @course.destroy!
-    redirect '/courses'
+    redirect '/admin/courses'
   end
 
-  def self.send_email
-    enrollments = Enrollment.where(:status => ['active']) # Add Sending time condition
+  def self.send_daily_lesson
+    enrollments = Enrollment.where(
+      "next_sending_time <= :current_time AND status = :status", 
+      {current_time: Time.current, status: 'active'}
+      ) # Add Sending time condition
     if enrollments.length > 0
       self.email_user(enrollments)
+    end
+  end
+
+  def self.email_user(enrollment)
+    if enrollment.length >= 2
+      length = enrollment.length
+      first_half = enrollment.length/2
+      email_thread_one = Thread.new{email_user(enrollment[0, first_half])}
+      email_thread_two = Thread.new{email_user(enrollment[first_half, (length-first_half)])}
+      email_thread_one.join
+      email_thread_two.join
+    else
+      self.send_lesson(enrollment[0])
     end
   end
 
@@ -162,35 +191,22 @@ class CourseController < ApplicationController
     #Send Email
     mail.deliver!
 
-    #Start
+    # Set next lesson to be sent
     @next_lesson = @lesson[:day_id] + 1
     @update_enrollment = Enrollment.where(:id => enrollment[:id]).first
     if Lesson.where(:day_id => @next_lesson, :course_id =>enrollment[:course_id], ).first
       status = 'active'
       @update_enrollment.update_attributes(
-        :next_sending_time => Time.now+2592000, 
+        :next_sending_time => Time.now + DAY, 
         :status => status,
         :next_lesson => @next_lesson)
       @update_enrollment.save!
     else
       status = 'completed'
       @update_enrollment.update_attributes(
-        :next_sending_time => Time.now+2592000,
+        :next_sending_time => Time.now + DAY,
         :status => status)
         @update_enrollment.save!
-    end
-  end
-
-  def self.email_user(enrollment)
-    if enrollment.length >= 2
-      length = enrollment.length
-      first_half = enrollment.length/2
-      email_thread_one = Thread.new{email_user(enrollment[0, first_half])}
-      email_thread_two = Thread.new{email_user(enrollment[first_half, (length-first_half)])}
-      email_thread_one.join
-      email_thread_two.join
-    else
-      self.send_lesson(enrollment[0])
     end
   end
 end

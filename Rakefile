@@ -14,7 +14,7 @@ end
 # Send daily email
 desc 'Send user daily email'
 task :lessons do 
-  CourseController.send_email
+  CourseController.send_daily_lesson
 end
 
 task default: :test
