@@ -1,0 +1,5 @@
+:schedule:
+  SendDailyLesson:
+    every: '1m'
+    :dynamic: true
+    description: 'Send Daily lessons'

@@ -6,6 +6,9 @@ class Course < ActiveRecord::Base
             presence: { message: 'Course Name must be provided' }
   validates :description,
             presence: { message: 'Course Description must be provided' }
-  validates :category_id, presence: true
+  validates :category_id, presence: { message: 'Category  must be selected' }
   belongs_to :category
+  has_many :lessons
+  has_many :enrollments
+  has_many :users, through: :enrollments
 end

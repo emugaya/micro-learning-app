@@ -8,7 +8,7 @@
             .card-body
               %h5= category.name
               %p= category.description
-              %a.btn.btn-primary{:href =>"/category/#{category.id}"} View Courses
+              %a.btn.btn-primary{:href =>"/category/#{category.id}/courses"} View Courses
     - else
       %p Sorry, there are no categories to display. Check back later
       

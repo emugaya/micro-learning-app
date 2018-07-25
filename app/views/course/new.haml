@@ -7,6 +7,8 @@
       %option.selected Choose a Category
       - @categories.each do |category|
         %option{:value => category.id } #{category.name}
+    - if @errors
+      = @errors[:category_id][0]
   .form-group.form-alignment
     %label{:for => 'courseTitle'} Course Title
     %input.form-control{:type => 'text', :id => 'courseTitle', :name => 'course[name]', :value => '', :placeholder => 'E.g Introduction to Architecture'}

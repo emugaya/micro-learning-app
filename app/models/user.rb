@@ -17,5 +17,6 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 8 }, presence: { message: 'Password must be given please' }
   validates :password_confirmation, presence: true
 
-  has_many :categories
+  has_many :enrollments
+  has_many :courses, through: :enrollments
 end

@@ -4,18 +4,15 @@ require_relative '../models/category'
 require_relative '../models/course'
 require_relative '../models/lesson'
 
+# Admin Controller for all admin views
 class AdminController < ApplicationController
-  before do 
+  before do
     @title = 'Admin Console'
     check_admin_auth
   end
+
   get '/' do
     haml :'admin/index'
-  end
-
-  get '/users' do
-    @users = Users.all
-    haml :'admin/users'
   end
 
   get '/categories' do

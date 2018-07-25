@@ -3,7 +3,7 @@ class CreateCoursesTable < ActiveRecord::Migration[5.2]
     create_table :courses do |t|
       t.string :name
       t.string :description
-      t.belongs_to :category, foreign_key: true
+      t.belongs_to :category, index: true
 
       t.timestamps
     end

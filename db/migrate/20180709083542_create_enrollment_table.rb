@@ -4,9 +4,8 @@ class CreateEnrollmentTable < ActiveRecord::Migration[5.2]
       t.belongs_to :course, foreign_key: true
       t.belongs_to :user, foreign_key: true
       t.string :status
-      t.integer :'next_lesson'
+      t.integer :next_lesson
       t.datetime :next_sending_time
-
       t.timestamps
     end
   end

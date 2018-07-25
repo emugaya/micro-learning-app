@@ -9,8 +9,8 @@
             %h5= course.name
             %p= course.description
             %a.btn.btn-primary{:href =>"/courses/#{course.id}/lessons"} View Course
-            - if session[:user_id]
-              - if @enrolled_courses.include?(course.id)
+            - if current_user
+              - if @enrolled_course_ids.include?(course.id)
                 %a.btn.btn-primary{:href =>"/courses/#{course.id}/withdraw"} Withdraw
               - else
                 %a.btn.btn-primary{:href =>"/courses/#{course.id}/enrol"} Enrol          

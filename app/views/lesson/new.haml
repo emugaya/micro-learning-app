@@ -7,6 +7,8 @@
       %option.selected Choose a Course
       - @courses.each do |course|
         %option{:value => course.id} #{course.name}
+    - if @errors
+      = @errors[:course_id][0]
   .form-group.form-alignment
     %lable{:for => 'lessonDay'} Lesson Number
     %select.form-control.custom-select.mr-sm-2{:id => 'lessonDay', :name => 'lesson[day_id]'}
@@ -23,8 +25,12 @@
   .form-group.form-alignment
     %lable{:for => 'lessonDescription'} Brief Lesson Description
     %textarea.form-control{:id => 'lessonDescription', :name => 'lesson[description]', :value => '', :placeholder => 'Lesson One introduces ...'}
+    - if @errors
+      = @errors[:description][0]
   .form-group.form-alignment
     %lable{:for => 'lessonUrl'} Lesson Url
     %input.form-control{:type => 'text', :id => 'lessonUrl', :name => 'lesson[url]', :value => '', :placeholder => 'Eg. Lesson 101'}
+    - if @errors
+      = @errors[:url][0]
   %br
   %button.btn.btn-success{:type => 'submit'} Save Lesson
