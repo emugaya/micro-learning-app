@@ -9,10 +9,14 @@
               %h5= course.name
               %p= course.description
               %a.btn.btn-primary{:href =>"/courses/#{course.id}/lessons"} View Lessons
-              - if session[:user_id]
-                - if @enrolled_courses.include?(course.id)
-                  %a.btn.btn-primary{:href =>"/courses/#{course.id}/withdraw"} Withdraw
+              - if current_user
+                %br
+                - if @enrolled_course_ids.include? course.id
+                  %form.form-inline{:action => "/courses/#{course.id}/withdraw", :method => 'post'}
+                    %input{:id => 'hidden', :type => 'hidden', :name => '_method', :value => 'PATCH'}
+                    %button.btn.btn-primary{:type => 'submit', :value => 'Withdraw From Course'} Withdraw
                 - else
-                  %a.btn.btn-primary{:href =>"/courses/#{course.id}/enrol"} Enrol
+                  %form.form-inline{:action => "/courses/#{course.id}/enrol", :method => 'post'}
+                    %button.btn.btn-primary{:type => 'submit', :value => 'Enrol For Course'} Enrol
     - else
       %p Sorry, there are no courses to display. Check back later

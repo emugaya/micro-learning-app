@@ -21,17 +21,16 @@
             %a.nav-link.active{:href => "/"} Home
             %a.nav-link{:href => "/courses"} Courses
             %a.nav-link{:href => "/category"} Categories
-            - if session[:user_id]
+            - if current_user
               .dropdown
-
-              %a.dropdown-toggle{ :id => 'dropdownMenuButton',
-                                  :'data-toggle' => 'dropdown', 
-                                  :'aria-haspopup' => 'true',
-                                  :'aria-expanded' => 'false'} Hi #{session[:user_first_name]}
-              .dropdown-menu
-                %a.dropdown-item{:href => '/signout'} SignOut
-                - if session[:is_admin]
-                  %a.dropdown-item{:href => '/admin'} Admin Console
+                %a.dropdown-toggle{ :id => 'dropdownMenuButton',
+                                    :'data-toggle' => 'dropdown', 
+                                    :'aria-haspopup' => 'true',
+                                    :'aria-expanded' => 'false'} Hi #{current_user.first_name}
+                .dropdown-menu
+                  %a.dropdown-item{:href => '/signout'} SignOut
+                  - if current_user.is_admin
+                    %a.dropdown-item{:href => '/admin'} Admin Console
             - else
               %a.nav-link{:href => "/signin"} SignIn
       %main.inner.cover{:role => "main"}

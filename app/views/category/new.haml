@@ -1,6 +1,6 @@
 %h2 Create a new Category
 %br
-%form{:action => '/category/new', :method => 'post', :role => 'form' }
+%form{:action => '/category', :method => 'post', :role => 'form' }
   .form-group.form-alignment
     %lable{:for => 'categoryTitle' } Category Title
     %input.form-control{:type => 'text', :id => 'categoryName', :name => 'category[name]', :value => '',:placeholder => 'E.g Architecture'}
@@ -10,7 +10,7 @@
     %lable{:for => 'categoryDescription'} Category Description
     %textarea.form-control{:id => 'categoryDescription', :name => 'category[description]', :value => '', :placeholder => 'E.g Learn Architecture Concepts from Scratch'}
     - if @errors
-      = @errors[:name][0]
+      = @errors[:description][0]
   %br
   %button.btn.btn-success{:type => 'submit'} Save Category
 

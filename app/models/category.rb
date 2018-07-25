@@ -5,6 +5,5 @@ class Category < ActiveRecord::Base
             presence: { message: 'Category Title must be provided' }
   validates :description,
             presence: { message: 'Category brief description must be provided' }
-  validates :user_id, presence: true
-  belongs_to :user
+  has_many :courses
 end

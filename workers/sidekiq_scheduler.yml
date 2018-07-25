@@ -1,0 +1,5 @@
+SendDailyLesson:
+  every: '0.5m'
+  class: SendDailyLesson
+  :dynamic: true
+  description: 'Send Daily lessons'
