@@ -24,22 +24,18 @@
         %option.selected Choose an Lesson Number
       - @days.each do |day|
         %option{:value => day.id} #{day.name}
-    - if @errors
-      = @errors[:day_id][0]
+    =render_error('day_id', @errors)
   .form-group.form-alignment
     %lable{:for => 'lessonTitle'} Lesson Title
     %input.form-control{:type => 'text', :id => 'lessonName', :name => 'lesson[name]', :value => "#{@lesson.name}", :placeholder => 'Eg. Lesson 101'}
-    - if @errors
-      = @errors[:name][0]
+    =render_error('name', @errors)
   .form-group.form-alignment
     %lable{:for => 'lessonDescription'} Brief Lesson Description
     %textarea.form-control{:id => 'lessonDescription', :name => 'lesson[description]', :placeholder => 'Lesson One introduces ...'} #{@lesson.description}
-    - if @errors
-      = @errors[:description][0]
+    =render_error('description', @errors)
   .form-group.form-alignment
     %lable{:for => 'lessonUrl'} Lesson Url
     %input.form-control{:type => 'text', :id => 'lessonUrl', :name => 'lesson[url]', :value => "#{@lesson.url}", :placeholder => 'Eg. Lesson 101'}
-    - if @errors
-      = @errors[:url][0]
+    =render_error('url', @errors)
   %br
   %button.btn.btn-success{:type => 'submit', :value => 'Edit Lesson'} Update Lesson

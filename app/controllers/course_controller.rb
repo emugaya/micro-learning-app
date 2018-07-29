@@ -84,13 +84,11 @@ class CourseController < ApplicationController
   end
 
   patch '/:id/withdraw' do
-    puts '^^^^^^^^^^^^^^^^^^^^^^^^^'
     course_id = params.values_at('id')
     enrollment = current_user.enrollments.where(status: 'active',
                                                 course_id: course_id).first
     not_found unless enrollment
     enrollment.update_attributes(status: 'withdrawn')
-    puts 'her***********e'
     redirect '/courses'
   end
 

@@ -42,14 +42,12 @@ class CategoryController < ApplicationController
     category_id = params.values_at('id')
     @category = Category.find_by(id: category_id)
     not_found unless @category
-    category = params[:category]
-    if category[:name].length.zero? || category[:description].length.zero?
-      @error = 'Name and Description must be provided'
-      return haml :'category/edit'
+    if @category.update_attributes(params[:category])
+      redirect '/admin/categories'
+    else
+      @errors = @category.errors
+      haml :'category/edit'
     end
-
-    @category.update_attributes(params[:category])
-    redirect '/admin/categories'
   end
 
   get '/:id/courses/?' do

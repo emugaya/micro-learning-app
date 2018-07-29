@@ -1,7 +1,7 @@
 require_relative '../../app/controllers/homepage_controller'
 module Helpers
   module Controllers
-    def app 
+    def app
       @app || described_class
     end
 

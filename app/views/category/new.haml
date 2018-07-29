@@ -4,13 +4,11 @@
   .form-group.form-alignment
     %lable{:for => 'categoryTitle' } Category Title
     %input.form-control{:type => 'text', :id => 'categoryName', :name => 'category[name]', :value => '',:placeholder => 'E.g Architecture'}
-    - if @errors
-      = @errors[:name][0]
+    =render_error('name', @errors)
   .form-group.form-alignment
     %lable{:for => 'categoryDescription'} Category Description
     %textarea.form-control{:id => 'categoryDescription', :name => 'category[description]', :value => '', :placeholder => 'E.g Learn Architecture Concepts from Scratch'}
-    - if @errors
-      = @errors[:description][0]
+    =render_error('description', @errors)
   %br
   %button.btn.btn-success{:type => 'submit'} Save Category
 
