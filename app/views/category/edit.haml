@@ -4,15 +4,15 @@
 
   %form{:action => "/category/#{@category.id}", :method => 'post', :role => 'form' }
     %input{:id => 'hidden', :type => 'hidden', :name => '_method', :value => 'PATCH'}
-    - if @error
-      %h6= @error
     .form-group.form-alignment
       %lable{:for => 'categoryTitle' }
         %h5 Category Title
       %input.form-control{:type => 'text', :id => 'categoryName', :name => 'category[name]', :value => "#{@category.name}", :placeholder => 'E.g Architecture'}
+      =render_error('name', @errors)
     .form-group.form-alignment
       %lable{:for => 'categoryDescription'} 
         %h5 Category Description
       %textarea.form-control{:id => 'categoryDescription', :name => 'category[description]', :placeholder => 'E.g Learn Architecture Concepts from Scratch '} #{@category.description}
+      =render_error('description', @errors)
     %br
     %button.btn.btn-success{:type => 'submit', :value => 'Edit Category'} Save Category

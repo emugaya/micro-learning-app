@@ -10,16 +10,18 @@ gem 'haml'
 gem 'pg'
 gem 'pony'
 gem 'rack-cache'
-gem 'rack-flash3'
 gem 'rake' 
-gem 'shotgun'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'sinatra'
 gem 'sinatra-activerecord'
-gem 'sinatra-flash'
 gem 'warden', '1.2.1' 
-gem 'pry'
+
+group :development do
+  gem 'derailed_benchmarks'
+  gem 'stackprof'
+  gem 'shotgun'
+end
 
 group :test do
   gem 'database_cleaner'

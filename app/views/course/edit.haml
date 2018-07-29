@@ -13,17 +13,14 @@
         %option.selected Choose a Category
       - @categories.each do |category|
         %option{:value => category.id } #{category.name}
-    - if @errors
-      = @errors[:category_id][0]
+    =render_error('category_id', @errors)
   .form-group.form-alignment
     %label{:for => 'courseTitle'} Course Title
     %input.form-control{:type => 'text', :id => 'courseTitle', :name => 'course[name]', :value => "#{@course.name}", :placeholder => 'E.g Introduction to Architecture'}
-    - if @errors
-      = @errors[:name][0]
+    =render_error('name', @errors)
   .form-group.form-alignment
     %label{:for => 'courseDescription'} Course Description
     %textarea.form-control{:id => 'courseDescription', :name => 'course[description]', :placeholder => 'An Introduction to ..'} #{@course.description}
-    - if @errors
-      = @errors[:description][0]
+    =render_error('description', @errors)
   %br
   %button.btn.btn-success{:type => 'submit', :value => 'Edit Course'} Save Course

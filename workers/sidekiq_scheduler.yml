@@ -1,5 +1,14 @@
 SendDailyLesson:
-  every: '0.5m'
+  every: '30m'
+  :queues:
+    - default
   class: SendDailyLesson
-  :dynamic: true
   description: 'Send Daily lessons'
+  :size: 2
+  :concurrency: 5
+  :timeout: 30
+  :verbose: false
+  production:
+    :concurrency: 5
+  staging:
+    :concurrency: 5

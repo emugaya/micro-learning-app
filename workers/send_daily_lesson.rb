@@ -14,10 +14,10 @@ end
 
 class SendDailyLesson
   include Sidekiq::Worker
-  # uri = URI.parse('localhost:6379')
-  # uri = URI.parse(ENV['REDISCLOUD_URL'] || 'redis://localhost:6379/')
-  # $redis = Redis.new(host: uri.host, port: uri.port, password: uri.password)
+  uri = URI.parse(ENV["REDISCLOUD_URL"] || "redis://localhost:6379/")
+  $redis = Redis.new(host: uri.host, port: uri.port, password: uri.password)
   def perform(msg='Sending Daily Lessons')
+    puts 'running scheduler '
     SendLesson.send_daily_lesson
   end
 end

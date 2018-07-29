@@ -3,7 +3,6 @@ require 'sinatra/base'
 require 'sinatra/activerecord'
 require 'haml'
 require 'rack'
-require 'rack-flash'
 require 'warden'
 require_relative '../helpers/application_helper.rb'
 
@@ -12,7 +11,6 @@ require_relative '../helpers/application_helper.rb'
 class ApplicationController < Sinatra::Base
   # Set Authentication using Warden
   use Rack::Session::Cookie, secret: ENV['SESSION_SECRET_KEY']
-  use Rack::Flash, accessorize: %i[error success]
 
   use Warden::Manager do |config|
     # serialize user to session ->

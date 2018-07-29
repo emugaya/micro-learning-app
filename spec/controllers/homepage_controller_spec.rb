@@ -1,9 +1,10 @@
 # homepage_controller_spec.rb
 require_relative '../../app/controllers/homepage_controller'
+
 RSpec.describe HomepageController do
   before :each do
     FactoryBot.create(:admin_user)
-    FactoryBot.create(:user)
+    FactoryBot.create(:non_admin_user)
   end
 
   context 'when accessing homepage' do
