@@ -9,4 +9,5 @@ class Lesson < ActiveRecord::Base
   validates :course_id, presence: true
   validates :day_id, presence: true
   belongs_to :course
+  belongs_to :day
 end

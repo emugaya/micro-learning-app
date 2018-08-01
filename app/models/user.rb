@@ -13,10 +13,9 @@ class User < ActiveRecord::Base
   validates :email_address,
             presence: { message: 'Email address must be given please' },
             format: { with: VALID_EMAIL_REGEX },
-            uniqueness: { case_sensitive: false, message: 'User with this email already exists, Reset password'}
+            uniqueness: { case_sensitive: true, message: 'User with this email already exists, Reset password'}
   validates :password, length: { minimum: 8 }, presence: { message: 'Password must be given please' }
   validates :password_confirmation, presence: true
-
   has_many :enrollments
   has_many :courses, through: :enrollments
 end

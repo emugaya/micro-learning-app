@@ -133,8 +133,7 @@ RSpec.describe CourseController do
     it 'enrols registerd users succesfully' do
       login_as non_admin_user
       post '/1/enrol'
-      puts last_response.body
-      # expect(Mail::TestMailer.deliveries.length).to be(1)
+      expect(Mail::TestMailer.deliveries.length).to be(1)
       expect_redirection_to '/courses/1/lessons'
     end
   end
