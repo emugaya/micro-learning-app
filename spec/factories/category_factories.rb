@@ -4,7 +4,7 @@ FactoryBot.define do
     description 'Description One'
   end
 
-  factory :invalid_category do
+  factory :invalid_category, parent: :category do
     name ''
     description ''
   end

@@ -31,6 +31,7 @@ group :test do
   gem 'rspec-mocks'
   gem 'rspec-simplecov'
   gem 'rack-test'
+  gem 'shoulda-matchers', '~> 3.1'
   gem 'spec'
   gem 'simplecov'
 end

@@ -16,6 +16,10 @@ FactoryBot.define do
   factory :non_admin_user, parent: :user do
     email_address 'user.test@test.com'
   end
+  
+  factory :non_admin_user1, parent: :user do
+    email_address 'user1.test1@test.com'
+  end
 
   factory :invalid_user, parent: :user do
     first_name ''
